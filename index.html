@@ -13,6 +13,12 @@
     <script src="./assets/javascript/app.js"></script>
     <title>Trivia Game</title>
 
+    <script>
+
+
+
+    </script>
+
 </head>
 
 <body>
@@ -37,11 +43,16 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Q u e s t i o n s :</h2>
                                 <h4 id="timer">Time Remaining (secs.):</h4>
-                                <h1 id="time">30</h1>
+                                <h1 id="timing">60</h1>
+                                <hr>
+                                <h2>Q u e s t i o n s :</h2>
+                                <button id="start" style="color:purple"></b>Start</b></button>
                             </div>
                         </div>
+                        <div id="quiz"></div>
+
+                        <br>
                         <div class="row">
                             <div class="col-md-4">
                                 <h3 id="correctA"><b>🏆 Correct Answers:</b><br><br><span id=cor>0</span></h3>
@@ -53,17 +64,16 @@
                                 <h3 id="numOfQ"><b>No. of Questions:</b><br><br><span id=numQ>10</span></h3>
                             </div>
                         </div>
+
+
+
+
                         <div class="row">
-                            <div class="col-md-4">
-                                <form id="ques"></form>
+                            <div class="col-md-6">
+                                <button id="reset" onClick="resetGame();" style="color:blue"></b>Reset</b></button>
                             </div>
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button id="reset" onClick="resetGame();" style="color:green"></b>Reset</b></button>
+                            <div class="col-md-6">
+                                <button id="submit" onClick="submitGame();" style="color:green"></b>Submit</b></button>
                             </div>
                         </div>
                         <div class="row">

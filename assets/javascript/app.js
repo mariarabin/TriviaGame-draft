@@ -1,37 +1,61 @@
 // Page loads as a start of the game
 $(document).ready(function () {
     //start of the game - start timer
-    alert("Let's get R-E-A-D-Y👾!!!");
-
-    //display
-    $("#ques").text(questions);
+    //alert("Let's get R-E-A-D-Y👾!!!");
 
     //======VARIABLES========
-
-    var questions = [
-        {
-            question: 'What is the capital of the Philippines?',
-            answers: [
-                { answer: 'A. Manila', value: true },
-                { answer: 'B. Cebu', value: false },
-                { answer: 'C. Luzon', value: false },
-                { answer: 'D. Metro Manila', value: false }
-            ]
-        },
-        {
-            question: 'How many states are there in the United States of America?',
-            answers: [
-                { answer: 'A. 51', value: false },
-                { answer: 'B. 48', value: true },
-                { answer: 'C. 50', value: false },
-                { answer: 'D. None', value: false }
-            ]
-        }]
-
-    var time = 30;
+    var questions = [{ q: "what?", c: ["a", "b", "c"], a: "b" }, { q: "When?", c: ["a", "b", "c"], a: "c" }];
+    var time = 5;
     var score = 0;
     var incorrect = 0;
     var total = 10;
+
+    $("#start").on('click', function () {
+        alert("Starting Game");
+        disableStartBtn();
+        //displayQs();
+        // timerStarts();
+        // timeOutStarts();
+        var anskey = 0;
+        for (var qIndex = 0; qIndex < questions.length; qIndex++) {
+            var myQuestion = questions[qIndex];
+            var qText = myQuestion.q;
+            var qValues = myQuestion.c;
+            var qAnswer = myQuestion.a;
+            $("#quiz").append(qText);
+            for (var i = 0; i < qValues.length; i++) {
+                var questionsList = "<input type='radio' onchange='selectedAnswerFn(this, \"" + qAnswer + "\" )' name=" + anskey + " value=" + qValues[i] + ">&nbsp;" + qValues[i];
+                var htmlQ = "<BR/>" + questionsList + "<BR/>";
+                $("#quiz").append(htmlQ);
+            }
+            anskey = anskey + 1;
+        }
+    });
+
+
+    //$("#reset").on('click', function () {
+    //  resetGame();
+    //alert("Resetting Game")
+    //});
+
+
+    //$("#submit").on('click', function () {
+    //  alert("Checking Score")
+    //checkScore();
+    //timerStops();
+    //timeOutStops();
+
+
+    //});
+
+
+
+
+
+    //display
+
+
+
 
     //=============MAIN PROCESS===================
 
@@ -43,12 +67,42 @@ $(document).ready(function () {
 
 
 
-    $("button").click(function () {
-        resetGame();
-    });
+    //$("button").click(function () {
+    //  resetGame();
+    //});
 
     //=============FUNCTIONS===================
 
+    //Display Qs
+    function disableStartBtn() {
+        $("#start").disabled = true;
+    }
+
+    function displayQs() {
+        alert("Displaying Qs");
+        $("#quiz").text(questions.q);
+    };
+
+
+    function timeOutStarts() {
+        setTimeout(function () { alert("Timeout"); }, 60000);
+    };
+
+    function count() {
+        //time = 30;
+        time--;
+        if (time === 0) {
+            alert("Time is up");
+            clearInterval(intervalId);
+        };
+        $("#timing").text(time);
+    };
+
+
+    function timerStarts() {
+        intervalId = setInterval(count, 1000);
+
+    };
 
 
     //End Game - End Timer
@@ -58,37 +112,12 @@ $(document).ready(function () {
         alert("Game ends. Resetting💻");
         //setting back to original value
 
-        var questions = [
-            {
-                question: 'What is the capital of the Philippines?',
-                answers: [
-                    { answer: 'A. Manila', value: true },
-                    { answer: 'B. Cebu', value: false },
-                    { answer: 'C. Luzon', value: false },
-                    { answer: 'D. Metro Manila', value: false }
-                ]
-            },
-            {
-                question: 'How many states are there in the United States of America?',
-                answers: [
-                    { answer: 'A. 51', value: false },
-                    { answer: 'B. 48', value: true },
-                    { answer: 'C. 50', value: false },
-                    { answer: 'D. None', value: false }
-                ]
-            }]
-
-        var time = 30;
-        var correct = 0;
-        var incorrect = 0;
-        var total = 10;
-
         //display
-        $("#time").text(time);
+        $("#timing").text(time);
         $("#cor").text(correct);
         $("#inc").text(incorrect);
         $("#numQ").text(total);
-        alert("Get Ready again🤖!!!");
+        //alert("Get Ready again🤖!!!");
     };
 
 
@@ -98,9 +127,14 @@ $(document).ready(function () {
 
 
     //Reveal all answers
-
-
-
-
-
 });
+
+//var correctAnswers = ["b", "c"];
+var myAnswers = [];
+
+function selectedAnswerFn(selectedObj, correctAnswer) {
+    myAnswers[selectedObj.name] = selectedObj.value;
+    if (correctAnswer === myAnswers[selectedObj.name]) {
+        alert("Got the correct answer! " + myAnswers[selectedObj.name]);
+    }
+}
