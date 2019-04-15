@@ -5,17 +5,26 @@ $(document).ready(function () {
 
     //======VARIABLES========
     var questions = [{ q: "what?", c: ["a", "b", "c"], a: "b" }, { q: "When?", c: ["a", "b", "c"], a: "c" }];
-    var time = 5;
+    var time = 30;
     var score = 0;
     var incorrect = 0;
     var total = 10;
 
+    var selectedObj = [];
+
+    $("#submit").hide();
+
+    $("#submit").on('click', function () {
+        alert("Checking Answers...");
+        selectedAnswerFn();
+    });
+
+
     $("#start").on('click', function () {
         alert("Starting Game");
-        disableStartBtn();
+        timerStarts();
+        timeOutStarts();
         //displayQs();
-        // timerStarts();
-        // timeOutStarts();
         var anskey = 0;
         for (var qIndex = 0; qIndex < questions.length; qIndex++) {
             var myQuestion = questions[qIndex];
@@ -29,30 +38,13 @@ $(document).ready(function () {
                 $("#quiz").append(htmlQ);
             }
             anskey = anskey + 1;
-        }
+        };
+        $("#start").hide();
+        $("#submit").show();
     });
 
 
-    //$("#reset").on('click', function () {
-    //  resetGame();
-    //alert("Resetting Game")
-    //});
 
-
-    //$("#submit").on('click', function () {
-    //  alert("Checking Score")
-    //checkScore();
-    //timerStops();
-    //timeOutStops();
-
-
-    //});
-
-
-
-
-
-    //display
 
 
 
@@ -63,31 +55,17 @@ $(document).ready(function () {
 
 
 
-    //display timer
 
 
 
-    //$("button").click(function () {
-    //  resetGame();
-    //});
 
     //=============FUNCTIONS===================
 
-    //Display Qs
-    function disableStartBtn() {
-        $("#start").disabled = true;
-    }
-
-    function displayQs() {
-        alert("Displaying Qs");
-        $("#quiz").text(questions.q);
-    };
-
-
+    //display timer
     function timeOutStarts() {
         setTimeout(function () { alert("Timeout"); }, 60000);
-    };
 
+    };
     function count() {
         //time = 30;
         time--;
@@ -105,36 +83,32 @@ $(document).ready(function () {
     };
 
 
+
+
+
+
+
+
     //End Game - End Timer
-
-    //Reset Game
-    function resetGame() {
-        alert("Game ends. Resetting💻");
-        //setting back to original value
-
-        //display
-        $("#timing").text(time);
-        $("#cor").text(correct);
-        $("#inc").text(incorrect);
-        $("#numQ").text(total);
-        //alert("Get Ready again🤖!!!");
-    };
-
-
-    //Check Wins - score
-
     //Check Wronng Answers -- -- reveal answers
 
 
     //Reveal all answers
 });
 
+//Check Wins - score
 //var correctAnswers = ["b", "c"];
 var myAnswers = [];
+score = 0;
 
 function selectedAnswerFn(selectedObj, correctAnswer) {
     myAnswers[selectedObj.name] = selectedObj.value;
     if (correctAnswer === myAnswers[selectedObj.name]) {
-        alert("Got the correct answer! " + myAnswers[selectedObj.name]);
+        //alert("Got the correct answer! " + myAnswers[selectedObj.name]);
+        score++;
+        $("#cor").text(score);
     }
-}
+};
+
+
+
